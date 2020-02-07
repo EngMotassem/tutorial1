@@ -134,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
 
         UserData.put("uid",uid);
 
+        UserData.put("level","customer");
+
+
         myRef.setValue(UserData);
 
 
