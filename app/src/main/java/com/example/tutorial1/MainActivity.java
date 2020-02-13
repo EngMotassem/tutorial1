@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tutorial1.helper.FirebaseHelper;
 import com.example.tutorial1.helper.LoadingHelper;
+import com.example.tutorial1.models.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -76,20 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
                      AddNewUser();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                  }
              }
          });
@@ -124,21 +112,15 @@ public class MainActivity extends AppCompatActivity {
     private void saveToFirebase(){
 
 
+        FirebaseHelper <UserModel> firebaseHelper=new FirebaseHelper<>();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("users"+"/"+uid);
+        UserModel userModel=new UserModel();
 
-        HashMap<String, String> UserData = new HashMap<String, String>();
+        userModel.setUsername(username.getText().toString());
 
-        UserData.put("userName",username.getText().toString());
+        userModel.setUid(uid);
 
-        UserData.put("uid",uid);
-
-        UserData.put("level","customer");
-
-
-        myRef.setValue(UserData);
-
+        firebaseHelper.saveData("users",uid,userModel);
 
     }
 
